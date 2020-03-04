@@ -9,6 +9,19 @@ content: |
   [/list]
 
 ---
+title: About me
+content: |
+  [title][/title]
+  [list animation="1,appear"]
+  [*]Addicted to Perl since 1998
+  [*]Addicted to YAML since 2017
+  [*]Engineer at SUSE Software Solutions [img=suse_logo_small.png]SUSE[/img] since 2019
+  [*]"YAML Consultant"
+  [*]Maintaining the YAML Test Suite, YAML Test Matrix,
+     YAML.pm, YAML::XS, PyYAML, libyaml, and YAML::PP
+  [/list]
+
+---
 title: Topics
 content: |
   [title][/title]
@@ -41,6 +54,27 @@ content: |
   [span animation="3,appear"]Markup[/span]
   [span animation="4,appear"]Language[/span]
   [/size]
+
+---
+title: YAML
+content: |
+  [title][/title]
+  [list animation="1,greyin"]
+  [*]Invented 2001
+  [*]By Oren Ben-Kiki, Clark Evans, Ingy döt Net
+  [/list]
+
+---
+title: YAML
+content: |
+  [title][/title]
+  [list animation="1,appear"]
+  [*]Should I use JSON or YAML?
+  [*]Yes!
+  [*]Oooh, you meant...
+  [*]Should I use JSON xor YAML?
+  [*]It depends!
+  [/list]
 
 ---
 title: YAML
@@ -123,6 +157,14 @@ content: |
   [codebox][include="alias.yaml.html"][/codebox]
 
 ---
+title: Syntax - Documents
+content: |
+  [title][/title]
+  [codebox][include="documents.yaml.html"][/codebox]
+  [br]
+  [codebox][include="documents.pl.html"][/codebox]
+
+---
 title: Implementation - YAML Versions
 content: |
   [title][/title]
@@ -161,15 +203,15 @@ content: |
   [title][/title]
   [h2]How many values are loaded as booleans in YAML 1.1?[/h2]
 
-  [div animation="1,appear"][size=70][b]22![/b][/size][br][/div]
-  [codebox animation="2,appear"]
-    y | Y | yes | Yes | YES
-  | n | N | no  | No  | NO
-  | true  | True  | TRUE
-  | false | False | FALSE
-  | on  | On  | ON
-  | off | Off | OFF[/codebox]
-  [div animation="3,appear"]
+  [codebox]
+  [span animation=1,appear]  true  | True  | TRUE[/span]
+  [span animation=2,appear]| false | False | FALSE[/span]
+  [span animation=3,appear]| y | Y | yes | Yes | YES[/span]
+  [span animation=4,appear]| n | N | no  | No  | NO[/span]
+  [span animation=5,appear]| on  | On  | ON[/span]
+  [span animation=6,appear]| off | Off | OFF[/span][/codebox]
+  [div animation="7,appear"][size=60][b]22![/b][/size][br][/div]
+  [div animation="8,appear"]
   [br]
   A classic gotcha is that the country code for Norway ('NO') loads as a boolean.
   [/div]
@@ -258,8 +300,7 @@ content: |
   [list animation="1,greyin"]
   [*]Before the fix regexes would grow endlessly:
   [/list]
-  [codebox animation="10,appear"]use YAML;
-  #use YAML::XS;
+  [codebox animation="10,appear"]use YAML; #use YAML::XS;
   use Encode;
 
   my $yaml = decode_utf8 q{re : !!perl/regexp OK};
@@ -268,7 +309,6 @@ content: |
       $data = Load $yaml;
       $yaml = Dump $data;
   }
-
   say $yaml;
 
   __END__
@@ -318,7 +358,6 @@ content: |
 
   my $data = Load $yaml;
   print Dump $data;
-
   __END__
   z: 1
   a: 2
@@ -329,45 +368,15 @@ content: |
 title: YAML.pm - Compact nested block sequences
 content: |
   [title][/title]
-  [codebox]---
-  # Before only this
-  # could be parsed
-
-  -
-    - a
-    - b
-  -
-    - c
-    - d
-  [/codebox]
-  [codebox]---
-  # Now it can also
-  # parse this
-
-  - - a
-    - b
-  - - c
-    - d
-
-
-  [/codebox]
+  [codebox animation="1,appear"][include="sequence-before.yaml.html"][/codebox]
+  [codebox animation="2,appear"][include="sequence-after.yaml.html"][/codebox]
 
 ---
 title: YAML.pm - Zero indented block sequences
 content: |
   [title][/title]
-  [codebox]--- # Before
-
-  foo:
-    - a
-    - b
-  [/codebox]
-  [codebox]--- # After
-
-  foo:
-  - a
-  - b
-  [/codebox]
+  [codebox animation="1,appear"][include="sequence-indent-before.yaml.html"][/codebox]
+  [codebox animation="2,appear"][include="sequence-indent-after.yaml.html"][/codebox]
 
 ---
 title: YAML.pm - Disable loading globs by default
@@ -377,13 +386,7 @@ content: |
   [*]Did you know that you can manipulate any global variable by loading YAML?
   [*]Now this is only supported if you enable $YAML::LoadCode
   [/list]
-  [codebox]# This will set $YAML::LoadCode to true!
-  --- !!perl/glob
-  PACKAGE: YAML
-  NAME: LoadCode
-  SCALAR: 1
-  [/codebox]
-
+  [codebox][include="globs.yaml.html"][/codebox]
 
 ---
 title: YAML.pm - Trailing space after flow style
@@ -413,7 +416,7 @@ content: |
 title: YAML.pm - Spaces in quoted hash keys
 content: |
   [title][/title]
-  [codebox animation="10,appear"]use YAML;
+  [codebox]use YAML;
 
   my $yaml = <<'EOM';
   ---
@@ -432,7 +435,7 @@ content: |
   [list]
   [*]Empty mapping value at the end resolved to empty string instead of undef
   [/list]
-  [codebox animation="10,appear"]use YAML;
+  [codebox]use YAML;
   my $yaml = <<'EOM';
   ---
   foo1:
@@ -650,18 +653,18 @@ content: |
   [codebox]               ----- Syntax -----              ----- Schema -----
   [b]Load[/b]:
 
-  YAML Stream            Tokens            Event List        Data Structure
-            [color=green][b]------------->    -------------->        --------->[/b][/color]
-                      lex/parse                      construct
-            YAML::PP::Lexer/YAML::PP::Parser    YAML::PP::Constructor
+  YAML Stream       Tokens        Event List        Data Structure
+            [color=green][b]-------->    --------->        --------->[/b][/color]
+                  lex/parse                   construct
+           YAML::PP::Lexer/Parser         YAML::PP::Constructor
 
 
   [b]Dump[/b]:
 
-  YAML Stream              Event List           Data Structure
-              [color=green][b]<-------------        <---------------[/b][/color]
-                   emit                represent
-           YAML::PP::Emitter        YAML::PP::Representer
+  YAML Stream                   Event List           Data Structure
+              [color=green][b]<------------------        <---------------[/b][/color]
+                   emit                     represent
+           YAML::PP::Emitter             YAML::PP::Representer
   [/codebox]
 
 
@@ -673,18 +676,18 @@ content: |
   [codebox]               ----- Syntax -----              ----- Schema -----
   [b]Load[/b]:
 
-  YAML Stream            Tokens            Event List        Data Structure
-            [color=green][b]------------->    -------------->        --------->[/b][/color]
-                      [color=red]lex/parse[/color]                      construct
-             [color=red]YAML::PP::LibYAML::Parser[/color]          YAML::PP::Constructor
+  YAML Stream       Tokens        Event List        Data Structure
+            [color=green][b]-------->    --------->        --------->[/b][/color]
+                  [color=red]lex/parse[/color]                   construct
+         [color=red]YAML::PP::LibYAML::Parser[/color]        YAML::PP::Constructor
 
 
   [b]Dump[/b]:
 
-  YAML Stream              Event List           Data Structure
-              [color=green][b]<-------------        <---------------[/b][/color]
-                   [color=red]emit[/color]                represent
-       [color=red]YAML::PP::LibYAML::Emitter[/color]   YAML::PP::Representer
+  YAML Stream                   Event List           Data Structure
+              [color=green][b]<------------------        <---------------[/b][/color]
+                   [color=red]emit[/color]                     represent
+       [color=red]YAML::PP::LibYAML::Emitter[/color]        YAML::PP::Representer
   [/codebox]
 
 ---
@@ -693,12 +696,12 @@ content: |
   [title][/title]
   [codebox]
   Load:
-  [span animation=1,appear]YAML::PP          ################################################################# 65ms[/span]
-  [span animation=2,appear]YAML.pm           ######################################### 41.4ms[/span]
-  [span animation=3,appear]YAML::PP::LibYAML ########## 10.2ms[/span]
-  [span animation=4,appear]YAML::Tiny        ####### 7.3ms[/span]
-  [span animation=5,appear]YAML::Syck        # 1.25ms[/span]
-  [span animation=6,appear]YAML::XS          # 1ms[/span]
+  [span animation=1,appear]YAML::PP          [size=20]################################################################# 65ms[/size][/span]
+  [span animation=2,appear]YAML.pm           [size=20]######################################### 41.4ms[/size][/span]
+  [span animation=3,appear]YAML::PP::LibYAML [size=20]########## 10.2ms[/size][/span]
+  [span animation=4,appear]YAML::Tiny        [size=20]####### 7.3ms[/size][/span]
+  [span animation=5,appear]YAML::Syck        [size=20]# 1.25ms[/size][/span]
+  [span animation=6,appear]YAML::XS          [size=20]# 1ms[/size][/span]
   [/codebox]
 
 ---
@@ -707,10 +710,10 @@ content: |
   [title][/title]
   [codebox]use YAML::PP;
   my $yp = YAML::PP->new(
-      [span animation="1,appear"]indent => 5,         # indentation width for dumping[/span]
-      [span animation="2,appear"]header => 1,         # print document header ---[/span]
-      [span animation="3,appear"]footer => 1,         # print document footer ...[/span]
-      [span animation="4,appear"]version_directive => # print %YAML 1.2[/span]
+      [span animation="1,appear"][color=#44aacc]indent[/color] => 5,            # indentation width for dumping[/span]
+      [span animation="2,appear"][color=#44aacc]header[/color] => 1,            # print document header ---[/span]
+      [span animation="3,appear"][color=#44aacc]footer[/color] => 1,            # print document footer ...[/span]
+      [span animation="4,appear"][color=#44aacc]version_directive[/color] => 1, # print %YAML 1.2[/span]
   );
   [/codebox]
 
@@ -731,7 +734,7 @@ content: |
   [list animation="10,appear"]
   [*]Cyclic references can cause memory leaks
   [/list]
-  [span animation="15,appear"][size=80]😠[/size][/span]
+  [span animation="15,appear"][size=80][color=red]😠[/color][/size][/span]
 
 ---
 title: YAML::PP - Disable Cyclic References
@@ -742,17 +745,17 @@ content: |
   my $yp = YAML::PP->new(
 
       [span animation="1,appear"]# make it fatal
-      cyclic_refs => 'fatal',[/span]
+      [color=#44aacc]cyclic_refs => 'fatal'[/color],[/span]
 
       [span animation="2,appear"]# just load undef insted of ref and ignore
-      cyclic_refs => 'ignore',[/span]
+      [color=#44aacc]cyclic_refs => 'ignore'[/color],[/span]
 
       [span animation="3,appear"]# unfortunately no 'weaken' option yet[/span]
       [span animation="4,appear"]# it's complicated! ;-)[/span]
 
   );
   [/codebox]
-  [span animation="5,appear"][size=80]🙂[/size][/span]
+  [span animation="5,appear"][size=80][color=green]🙂[/color][/size][/span]
 
 ---
 title: YAML::PP - Options
@@ -773,7 +776,7 @@ content: |
   }
   [/div]
   [/codebox]
-  [span animation="15,appear"][size=80]😠[/size][/span]
+  [span animation="15,appear"][size=80][color=red]😠[/color][/size][/span]
 
 ---
 title: YAML::PP - Booleans
@@ -782,15 +785,15 @@ content: |
   [codebox]use YAML::PP;
 
   [span animation="1,appear"]# 1 / ''
-  my $yp = YAML::PP->new( boolean => 'perl' );[/span]
+  my $yp = YAML::PP->new( [color=#44aacc]boolean => 'perl'[/color] );[/span]
 
   [span animation="2,appear"]# JSON::PP::true/false
-  my $yp = YAML::PP->new( boolean => 'JSON::PP' );[/span]
+  my $yp = YAML::PP->new( [color=#44aacc]boolean => 'JSON::PP'[/color] );[/span]
 
   [span animation="3,appear"]# boolean::true/false
-  my $yp = YAML::PP->new( boolean => 'boolean' );[/span]
+  my $yp = YAML::PP->new( [color=#44aacc]boolean => 'boolean'[/color] );[/span]
   [/codebox]
-  [span animation="5,appear"][size=80]🙂[/size][/span]
+  [span animation="5,appear"][size=80][color=green]🙂[/color][/size][/span]
 
 ---
 title: YAML::PP - Options
@@ -814,7 +817,7 @@ content: |
   [/codebox][/div]
   [/horizontal]
   [br]
-  [span animation="5,appear"][size=80]😠[/size][/span]
+  [span animation="15,appear"][size=80][color=red]😠[/color][/size][/span]
 
 ---
 title: YAML::PP - Preserve
@@ -825,12 +828,13 @@ content: |
   [*]Implemented with tie()
   [/list]
   [div animation="1,appear"]
-  [codebox]use YAML::PP::Common qw/ PRESERVE_ORDER /;
-  my $yp = YAML::PP->new( preserve => PRESERVE_ORDER );
+  [codebox]use YAML::PP::Common qw/ [color=#44aacc]PRESERVE_ORDER[/color] /;
+
+  my $yp = YAML::PP->new( [color=#44aacc]preserve => PRESERVE_ORDER[/color] );
 
   say $yp->dump_string( $yp->load_string( $yaml ) );
   [/codebox][/div]
-  [span animation="5,appear"][size=80]🙂[/size][/span]
+  [span animation="5,appear"][size=80][color=green]🙂[/color][/size][/span]
 
 ---
 title: YAML::PP - Preserve
@@ -853,7 +857,7 @@ content: |
   [/codebox]
   [/horizontal]
   [br]
-  [span animation="5,appear"][size=80]😠[/size][/span]
+  [span animation="15,appear"][size=80][color=red]😠[/color][/size][/span]
 
 ---
 title: YAML::PP - Preserve
@@ -863,12 +867,13 @@ content: |
   [*]Quoting style can be preserved (still experimental)
   [*]Scalars will be loaded as an object with overloading
   [/list]
-  [codebox]use YAML::PP::Common qw/ PRESERVE_SCALAR_STYLE /;
-  my $yp = YAML::PP->new( preserve => PRESERVE_SCALAR_STYLE );
+  [codebox]use YAML::PP::Common qw/ [color=#44aacc]PRESERVE_SCALAR_STYLE[/color] /;
+
+  my $yp = YAML::PP->new( [color=#44aacc]preserve => PRESERVE_SCALAR_STYLE[/color] );
 
   say $yp->dump_string( $yp->load_string( $yaml ) );
   [/codebox]
-  [span animation="5,appear"][size=80]🙂[/size][/span]
+  [span animation="5,appear"][size=80][color=green]🙂[/color][/size][/span]
 
 ---
 title: YAML::PP - Preserve
@@ -877,6 +882,34 @@ content: |
   [codebox]
   # Try it out with this utility script!
   % yamlpp5-load-dump < file.yaml
+  [/codebox]
+
+---
+title: YAML::PP - Perl Types and Objects
+content: |
+  [title][/title]
+  [codebox animation=1,appear]
+  use YAML::PP;
+  my $yp = YAML::PP->new(
+      # enable references, regexes and objects
+      [color=#44aacc]schema => [qw/ + Perl /][/color],
+  );
+  [/codebox]
+
+---
+title: YAML::PP - Only load certain classes
+content: |
+  [title][/title]
+  [codebox animation=1,appear]
+  use YAML::PP;
+  use YAML::PP::Schema::Perl;
+  my $perl = YAML::PP::Schema::Perl->new(
+      [color=#44aacc]classes => [qw/ My::Class::X My::Class::Y /][/color],
+  );
+  my $yp = YAML::PP->new(
+      # enable references, regexes and objects
+      [color=#44aacc]schema => ['+', $perl][/color],
+  );
   [/codebox]
 
 ---
@@ -905,24 +938,24 @@ content: |
   use YAML::PP;
   my $yp = YAML::PP->new(
       # enable Merge Keys
-      schema => [qw/ + Merge /],
+      [color=#44aacc]schema => [qw/ + Merge /][/color],
   );
   [/codebox]
-  [span animation="15,appear"][size=80]🙂[/size][/span]
+  [span animation="15,appear"][size=80][color=green]🙂[/color][/size][/span]
 
 ---
 title: YAML::PP - Include other YAML Files
 content: |
   [title][/title]
-  [codebox]--- # invoice.yaml
+  [div animation=1,appear][codebox]--- # invoice.yaml
   billing address:  [color=green]!include [/color][color=blue]billing-address.yaml[/color]
   shipping address: !include shipping-address.yaml
-  [/codebox][br]
-  [codebox]--- # [color=blue]billing-address.yaml[/color]
+  [/codebox][/div][br]
+  [div animation=2,appear][codebox]--- # [color=blue]billing-address.yaml[/color]
   street:  Santa Claus Lane North Pole
   zip:     '99705'
   country: Alaska
-  [/codebox]
+  [/codebox][/div]
 
 ---
 title: YAML::PP - Include other YAML Files
@@ -930,10 +963,13 @@ content: |
   [title][/title]
   [codebox]use YAML::PP;
   use YAML::PP::Schema::Include;
-  my $include = YAML::PP::Schema::Include->new;
+  [span animation=1,appear]my $include = YAML::PP::Schema::Include->new;[/span]
 
-  my $yp = YAML::PP->new( ['+', $include ] );
-  $include->yp($yp);
+  [span animation=2,appear]my $yp = YAML::PP->new( [color=#44aacc]['+', $include ][/color] );[/span]
+
+  [span animation=3,appear]# still needed to make the include object aware
+  # of the YAML::PP object
+  $include->yp($yp);[/span]
   [/codebox]
 
 ---
@@ -948,21 +984,81 @@ content: |
   [span animation="1,appear"]my $include = YAML::PP::Schema::Include->new(
       # allow !include /etc/passwd
       # or !include ../../../../etc/passwd
-      allow_absolute => 1,
+      [color=#44aacc]allow_absolute => 1[/color],
   );[/span]
 
   [span animation="2,appear"]my $include = YAML::PP::Schema::Include->new(
-      paths => [ qw( /path/prefix ) ],
+      [color=#44aacc]paths => [ qw( /path/prefix ) ][/color],
   );[/span]
 
   [/codebox]
-  [span animation="5,appear"][size=80]🙂[/size][/span]
+  [span animation="5,appear"][size=80][color=green]🙂[/color][/size][/span]
+
+---
+title: YAML::PP - Include and Merge
+content: |
+  [title][/title]
+  [div animation=1,appear][codebox]--- [color=blue]# defaults.yaml[/color]
+  x: 1
+  y: 2
+  z: 3
+  [/codebox][/div][br]
+  [div animation=2,appear][codebox]---
+  some thing:
+    <<:  [color=green]!include [/color][color=blue]defaults.yaml[/color]
+    foo: 1
+    bar: 2
+  [/codebox][/div][br]
+
+---
+title: YAML::PP - Add your own constructor
+content: |
+  [title][/title]
+  [codebox]$yp->schema->add_resolver(
+      tag => "tag:yaml.org,2002:int",
+      match => [ regex
+  [span animation=3,appear]        => [color=#44aacc]qr/^ ([IVXLCM]+) \z/x[/color][/span]
+  [span animation=4,appear]        => [color=#44aacc]sub {[/color]
+              return {
+                  I =>1, II =>2, III =>3, IV=>4, V=>5,
+                  VI=>6, VII=>7, VIII=>8, IX=>9, X=>10,
+              }->{ $_[0] };
+          [color=#44aacc]}[/color]],[/span]
+  [span animation=5,appear]    [color=#44aacc]implicit[/color] => 1, # allow matching without tag[/span]
+  );[/codebox]
+  [div animation=10,appear][codebox]---
+  - VII # seven
+  - 7   # and another seven[/codebox][/div]
+
+---
+title: YAML::PP - Add your own constructor
+content: |
+  [title][/title]
+  [size=60][br]Warning: API for that not stable yet![/size]
+
+---
+title: YAML::PP - AWS CloudFormation example
+content: |
+  [title][/title]
+  [div animation=1,appear][codebox][include="aws-cfn.json.html"][/codebox][/div]
+  [div animation=2,appear][codebox][include="aws-cfn.yaml.html"][/codebox][/div]
+
+---
+title: YAML::PP - AWS CloudFormation example
+content: |
+  [title][/title]
+  [list animation="1,appear"]
+  [*]There is already a CPAN module that uses YAML::PP for that
+  [*][url=https://metacpan.org/pod/Cfn]Cfn - An object model for CloudFormation documents[/url]
+  [*]The author knows that the API might change ;-)
+  [*]If possible I will just deprecate the current API
+  [/list]
 
 ---
 title: YAML::PP - YAML 1.1 & 1.2
 content: |
   [title][/title]
-  [codebox]my $yp = YAML::PP->new( yaml_version => [1.2, 1.1] );[/codebox]
+  [codebox]my $yp = YAML::PP->new( [color=#44aacc]yaml_version => [1.2, 1.1][/color] );[/codebox]
   [div animation="2,appear"][horizontal]
   [codebox]# Load as YAML 1.2
 
@@ -977,8 +1073,7 @@ content: |
   [/horizontal]
   [/div]
   [br]
-  [br]
-  [codebox]my $yp = YAML::PP->new( yaml_version => [1.1, 1.2] );[/codebox]
+  [div animation=3,appear][codebox]my $yp = YAML::PP->new( [color=#44aacc]yaml_version => [1.1, 1.2][/color] );[/codebox][/div]
   [div animation="4,appear"][horizontal]
   [codebox]# Load as YAML 1.1
 
@@ -999,22 +1094,23 @@ content: |
   [size=80][br]Questions?[/size]
 
 ---
-title: Thsnks
+title: Thanks
 content: |
   [size=80][br]Thanks![br]
-  🙂[/size]
+  [color=green]🙂[/color][/size]
 
 ---
 title: Links
 content: |
   [title][/title]
   [list]
-  [*]YAML::PP
-  [*]YAML::PP::LibYAML
-  [*]YAML::LibYAML::API
-  [*]schemas
-  [*]schema examples
-  [*]testsuite
+  [*][url=https://metacpan.org/pod/YAML::PP]YAML::PP[/url]
+  [*][url=https://metacpan.org/pod/YAML::PP::LibYAML]YAML::PP::LibYAML[/url]
+  [*][url=https://metacpan.org/pod/YAML::LibYAML::API]YAML::LibYAML::API[/url]
+  [*][url=https://perlpunk.github.io/YAML-PP-p5/schemas.html]YAML Schemas[/url]
+  [*][url=https://perlpunk.github.io/YAML-PP-p5/schema-examples.html]YAML Schema Examples[/url]
+  [*][url=https://github.com/yaml/yaml-test-suite]YAML Test Suite[/url]
+  [*][url=http://matrix.yaml.io/]YAML Test Matrix[/url]
   [/list]
 
 

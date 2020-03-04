@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-store" />
-<title>YAML::XS - Fix fatal error when loading many regexes</title>
+<title>YAML::XS - Implement $LoadCode</title>
 <link rel="prev" href="slide048.html" />
 <link rel="next" href="slide050.html" />
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -18,8 +18,8 @@
 <div id="test"></div>
 -->
 <div id="bbslides-slide" class="bbslides-frame">
-<h1 id="node_1" class="bbslides-h1">YAML::XS - Fix fatal error when loading many regexes</h1>
-<ul><li id="node_3">Loading many regex objects (about 125) resulted in &quot;panic: memory wrap&quot;</li></ul>
+<h1 id="node_1" class="bbslides-h1">YAML::XS - Implement $LoadCode</h1>
+<ul><li id="node_3">$YAML::LoadCode now works as in YAML.pm and YAML::Syck</li><li id="node_4">Before it was documented, but didn&#39;t do anything</li></ul>
 </div>
 <script type="text/javascript">
 
@@ -27,7 +27,7 @@ var prev_page = 'slide048.html';
 var next_page = 'slide050.html';
 </script>
 <div id="bbslides-navi">
-Slide 49/77
+Slide 49/88
 <a href="slide048.html" onclick="previous_step();return false">BACK</a>
 <a href="index.html">UP</a>
 <a href="slide050.html" onclick="next_step(); return false">NEXT</a>
@@ -36,7 +36,7 @@ next page: ( shift + page down ) | previous page: ( shift + page up ) |
 index: ( arrow-up )</span>
 
 <br>
-<progress id="slide-progress" value="49" max="77"></progress>
+<progress id="slide-progress" value="49" max="88"></progress>
 </div>
 </body>
 </html>

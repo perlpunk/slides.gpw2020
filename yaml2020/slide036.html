@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-store" />
-<title>YAML.pm - Spaces in quoted hash keys</title>
+<title>YAML.pm - Zero indented block sequences</title>
 <link rel="prev" href="slide035.html" />
 <link rel="next" href="slide037.html" />
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -18,27 +18,31 @@
 <div id="test"></div>
 -->
 <div id="bbslides-slide" class="bbslides-frame">
-<h1 id="node_1" class="bbslides-h1">YAML.pm - Spaces in quoted hash keys</h1>
-<div id="node_2" class="codebox">use YAML;
-
-my $yaml = &lt;&lt;&#39;EOM&#39;;
----
-- &quot;foo &quot;: bar
-- &quot;   baz&quot;: fuzz
-EOM
-Load $yaml;
-
-# Before ==&gt; Error
+<h1 id="node_1" class="bbslides-h1">YAML.pm - Zero indented block sequences</h1>
+<div id="node_2" class="codebox"><span class="doc_start">---</span><span class="eol"> # Before
+</span><span class="eol">
+</span><span class="default">foo</span><span class="colon">:</span><span class="eol">
+</span><span class="default">  </span><span class="dash">-</span><span class="default"> </span><span class="default">a</span><span class="eol">
+</span><span class="default">  </span><span class="dash">-</span><span class="default"> </span><span class="default">b</span><span class="eol">
+</span>
+</div>
+<div id="node_4" class="codebox"><span class="doc_start">---</span><span class="eol"> # After
+</span><span class="eol">
+</span><span class="default">foo</span><span class="colon">:</span><span class="eol">
+</span><span class="dash">-</span><span class="default"> </span><span class="default">a</span><span class="eol">
+</span><span class="dash">-</span><span class="default"> </span><span class="default">b</span><span class="eol">
+</span>
 </div>
 </div>
 <script type="text/javascript">
-register_animation('node_2', 10, 'appear', {});
+register_animation('node_2', 1, 'appear', {});
+register_animation('node_4', 2, 'appear', {});
 
 var prev_page = 'slide035.html';
 var next_page = 'slide037.html';
 </script>
 <div id="bbslides-navi">
-Slide 36/77
+Slide 36/88
 <a href="slide035.html" onclick="previous_step();return false">BACK</a>
 <a href="index.html">UP</a>
 <a href="slide037.html" onclick="next_step(); return false">NEXT</a>
@@ -47,7 +51,7 @@ next page: ( shift + page down ) | previous page: ( shift + page up ) |
 index: ( arrow-up )</span>
 
 <br>
-<progress id="slide-progress" value="36" max="77"></progress>
+<progress id="slide-progress" value="36" max="88"></progress>
 </div>
 </body>
 </html>

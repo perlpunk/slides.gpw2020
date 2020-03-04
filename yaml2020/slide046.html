@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-store" />
-<title>YAML::XS - Set indent width</title>
+<title>YAML.pm - Fix specific hash keys</title>
 <link rel="prev" href="slide045.html" />
 <link rel="next" href="slide047.html" />
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -18,12 +18,12 @@
 <div id="test"></div>
 -->
 <div id="bbslides-slide" class="bbslides-frame">
-<h1 id="node_1" class="bbslides-h1">YAML::XS - Set indent width</h1>
-<ul><li id="node_3">You can now use $YAML::XS::Indent to specify the indentation width</li></ul>
+<h1 id="node_1" class="bbslides-h1">YAML.pm - Fix specific hash keys</h1>
+<ul><li id="node_3">Some hash keys weren&#39;t recognized when in a list item</li></ul>
 <div id="node_4" class="codebox">
-use YAML::XS;
-$YAML::XS::Indent = 8;
-my $yaml = Dump($data);
+- .: a # &quot;.: a&quot;
+- /: b # &quot;/: b&quot;
+- $: c # &quot;$: b&quot;
 </div>
 </div>
 <script type="text/javascript">
@@ -32,7 +32,7 @@ var prev_page = 'slide045.html';
 var next_page = 'slide047.html';
 </script>
 <div id="bbslides-navi">
-Slide 46/77
+Slide 46/88
 <a href="slide045.html" onclick="previous_step();return false">BACK</a>
 <a href="index.html">UP</a>
 <a href="slide047.html" onclick="next_step(); return false">NEXT</a>
@@ -41,7 +41,7 @@ next page: ( shift + page down ) | previous page: ( shift + page up ) |
 index: ( arrow-up )</span>
 
 <br>
-<progress id="slide-progress" value="46" max="77"></progress>
+<progress id="slide-progress" value="46" max="88"></progress>
 </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-store" />
-<title>YAML.pm - Support trailing comments</title>
+<title>Added $LoadBlessed</title>
 <link rel="prev" href="slide028.html" />
 <link rel="next" href="slide030.html" />
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -18,19 +18,33 @@
 <div id="test"></div>
 -->
 <div id="bbslides-slide" class="bbslides-frame">
-<h1 id="node_1" class="bbslides-h1">YAML.pm - Support trailing comments</h1>
-<ul><li id="node_3">Trailing comments were part of the content</li></ul>
-<div id="node_4" class="codebox">---
-foo: bar # comment
+<h1 id="node_1" class="bbslides-h1">Added $LoadBlessed</h1>
+<ul><li id="node_3">Since YAML::XS 0.69 and YAML.pm 1.25 you can disable blessing objects</li><li id="node_4">Because making objects from untrusted data can be risky (DESTROY will be called)</li><li id="node_5">This allows to safely load YAML from untrusted sources</li><li id="node_6">YAML::Syck has had this already for a while</li><li id="node_7">Since YAML::Syck 1.32, YAML.pm 1.30 and YAML::XS 0.81 the default is 0</li><li id="node_8">If you are using older versions, do this:</li></ul>
+<div id="node_9" class="codebox">
+use YAML;
+$YAML::LoadBlessed = 0;
+
+use YAML::XS;
+$YAML::XS::LoadBlessed = 0;
+
+use YAML::Syck;
+$YAML::Syck::LoadBlessed = 0;
 </div>
 </div>
 <script type="text/javascript">
+register_animation('node_3', 2, 'greyin', {});
+register_animation('node_4', 3, 'greyin', {});
+register_animation('node_5', 4, 'greyin', {});
+register_animation('node_6', 5, 'greyin', {});
+register_animation('node_7', 6, 'greyin', {});
+register_animation('node_8', 7, 'greyin', {});
+register_animation('node_9', 10, 'appear', {});
 
 var prev_page = 'slide028.html';
 var next_page = 'slide030.html';
 </script>
 <div id="bbslides-navi">
-Slide 29/77
+Slide 29/88
 <a href="slide028.html" onclick="previous_step();return false">BACK</a>
 <a href="index.html">UP</a>
 <a href="slide030.html" onclick="next_step(); return false">NEXT</a>
@@ -39,7 +53,7 @@ next page: ( shift + page down ) | previous page: ( shift + page up ) |
 index: ( arrow-up )</span>
 
 <br>
-<progress id="slide-progress" value="29" max="77"></progress>
+<progress id="slide-progress" value="29" max="88"></progress>
 </div>
 </body>
 </html>
