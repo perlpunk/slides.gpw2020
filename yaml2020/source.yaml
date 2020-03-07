@@ -77,7 +77,7 @@ content: |
   [/list]
 
 ---
-title: YAML
+title: Who uses YAML?
 content: |
   [title][/title]
   [list animation="1,greyin"]
@@ -86,11 +86,12 @@ content: |
   [*]Travis CI, CircleCI, AppVeyor, ...
   [*]Kubernetes
   [*]docker-compose
+  [*]https://open.qa/
   [*]...
   [/list]
 
 ---
-title: YAML
+title: YAML ❤️
 content: |
   [size=140]
   [br]
@@ -98,7 +99,7 @@ content: |
   [/size]
 
 ---
-title: YAML
+title: YAML 😠
 content: |
   [size=140]
   [br]
@@ -1049,9 +1050,10 @@ content: |
   [title][/title]
   [list animation="1,appear"]
   [*]There is already a CPAN module that uses YAML::PP for that
-  [*][url=https://metacpan.org/pod/Cfn]Cfn - An object model for CloudFormation documents[/url]
+  [*][url=https://metacpan.org/pod/Cfn]Cfn[/url] - An object model for CloudFormation documents
   [*]The author knows that the API might change ;-)
   [*]If possible I will just deprecate the current API
+  [*]Let me know if you think about using this and have a feature request or suggestions
   [/list]
 
 ---
@@ -1107,6 +1109,7 @@ content: |
   [*][url=https://metacpan.org/pod/YAML::PP]YAML::PP[/url]
   [*][url=https://metacpan.org/pod/YAML::PP::LibYAML]YAML::PP::LibYAML[/url]
   [*][url=https://metacpan.org/pod/YAML::LibYAML::API]YAML::LibYAML::API[/url]
+  [*][url=https://metacpan.org/pod/Cfn]Cfn[/url] - An object model for CloudFormation documents
   [*][url=https://perlpunk.github.io/YAML-PP-p5/schemas.html]YAML Schemas[/url]
   [*][url=https://perlpunk.github.io/YAML-PP-p5/schema-examples.html]YAML Schema Examples[/url]
   [*][url=https://github.com/yaml/yaml-test-suite]YAML Test Suite[/url]
